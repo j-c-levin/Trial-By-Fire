@@ -6,6 +6,7 @@ public class Character
     private string className;
     private int currentExperience;
     private int currentLevel;
+    private CharacterState currentState;
     private int maxHealth;
     private int maxChannelling;
     private int baseSpeed;
@@ -92,6 +93,11 @@ public class Character
             default:
                 return -1;
         }
+    }
+
+    public void setStat(CharacterStats stat, int value)
+    {
+        //TODO: implement;
     }
 
     public int MaxHealth
@@ -273,6 +279,19 @@ public class Character
         set
         {
             currentChannelling = value;
+        }
+    }
+
+    public CharacterState CurrentState
+    {
+        get
+        {
+            return currentState;
+        }
+
+        set
+        {
+            currentState = value;
         }
     }
 }

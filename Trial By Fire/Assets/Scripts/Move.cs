@@ -4,11 +4,11 @@ public class Move
 {
     private string name;
     private int duration;
-    enum AoE { SINGLE, PIERCING_LINE, FRONT_ROW, SQUARE };
     private AoE shape;
     private int baseHitChance;
     private CharacterStats hitIncreaseModifier;
     private CharacterStats hitDecreaseModifier;
+    private CharacterStats effectStat;
     private int baseEffectValue;
     private CharacterStats effectIncreaseModifier;
     private CharacterStats effectDecreaseModifier;
@@ -127,6 +127,19 @@ public class Move
         set
         {
             effectDecreaseModifier = value;
+        }
+    }
+
+    public CharacterStats EffectStat
+    {
+        get
+        {
+            return effectStat;
+        }
+
+        set
+        {
+            effectStat = value;
         }
     }
 }
