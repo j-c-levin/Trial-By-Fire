@@ -1,9 +1,10 @@
 ﻿using TrialByFire;
+using System.Collections.Generic;
 
 public class Squad
 {
     private string name;
-    private Character[] members;
+    private List<Character> members;
 
     public string Name
     {
@@ -16,6 +17,11 @@ public class Squad
         {
             name = value;
         }
+    }
+
+    public void Initialize()
+    {
+        members = new List<Character>();
     }
 
     public Character getCharacterAtPosition(SquadPosition pos)

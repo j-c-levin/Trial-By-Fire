@@ -1,4 +1,5 @@
 ﻿using TrialByFire;
+using System.Collections.Generic;
 
 public class Character
 {
@@ -10,6 +11,8 @@ public class Character
     private int maxHealth;
     private int maxChannelling;
     private int baseSpeed;
+    private float turnSpeed;
+    private float actionDelay;
     private int baseStrength;
     private int baseArmour;
     private int baseAccuracy;
@@ -21,8 +24,10 @@ public class Character
     private int currentArmour;
     private int currentAccuracy;
     private int currentSync;
+    private int currentShield = 0;
     private Move[] moves;
-    private Move[] modifiers;
+    private List<Move> modifiers;
+    private int turnCount;
 
     public string Name
     {
@@ -80,16 +85,24 @@ public class Character
     {
         switch (stat)
         {
-            case CharacterStats.ACCURACY:
-                return CurrentAccuracy;
-            case CharacterStats.ARMOUR:
-                return CurrentArmour;
+            case CharacterStats.NONE:
+                return 0;
             case CharacterStats.SPEED:
                 return CurrentSpeed;
             case CharacterStats.STRENGTH:
                 return CurrentStrength;
+            case CharacterStats.ARMOUR:
+                return CurrentArmour;
+            case CharacterStats.ACCURACY:
+                return CurrentAccuracy;
             case CharacterStats.SYNC:
                 return CurrentSync;
+            case CharacterStats.CHANNELLING:
+                return CurrentChannelling;
+            case CharacterStats.HEALTH:
+                return CurrentHealth;
+            case CharacterStats.SHIELD:
+                return CurrentShield;
             default:
                 return -1;
         }
@@ -201,6 +214,12 @@ public class Character
         set
         {
             currentSpeed = value;
+            turnSpeed = (100 / currentSpeed) * turnCount;
+            if (turnCount == 1)
+            {
+                //Start of the game, store as action delay
+                actionDelay = turnSpeed;
+            }
         }
     }
 
@@ -292,6 +311,59 @@ public class Character
         set
         {
             currentState = value;
+        }
+    }
+
+    public void Initialize()
+    {
+        modifiers = new List<Move>();
+    }
+
+    public float TurnSpeed
+    {
+        get
+        {
+            return turnSpeed;
+        }
+    }
+
+    public int CurrentShield
+    {
+        get
+        {
+            return currentShield;
+        }
+
+        set
+        {
+            currentShield = value;
+        }
+    }
+
+    public void activeTurn()
+    {
+        turnCount += 1;
+        turnSpeed += actionDelay;
+
+        CurrentSpeed = BaseSpeed;
+        CurrentStrength = BaseStrength;
+        CurrentArmour = BaseArmour;
+        currentAccuracy = BaseAccuracy;
+        CurrentSync = BaseSync;
+        //TODO: handle channelling regen
+
+        for (int i = 0; i < modifiers.Count; i++)
+        {
+            modifiers[i].Duration -= 1;
+            if (modifiers[i].Duration > 0)
+            {
+                //Resolve effect
+                //TODO:  this currently assumes a fixed amount of value in the buff/debuff, this is probably not going to be the case in the end, perhaps create an overload in ActionController just to calculate the effect?
+                setStat(modifiers[i].EffectStat, modifiers[i].BaseEffectValue);
+            } else
+            {
+                modifiers.RemoveAt(i);
+            }
         }
     }
 }
