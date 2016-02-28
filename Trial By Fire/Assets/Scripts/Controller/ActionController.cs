@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using TrialByFire;
 
 public class ActionController
 {
-    private Squad[] teams;
     private List<Character> characters;
     private Character source;
     private List<Character> targets;
@@ -30,10 +30,11 @@ public class ActionController
         NextTurn();
     }
 
-    //TODO: create a setter for targets
-
     public void NextTurn()
     {
+        //Reset the target list
+        targets.RemoveRange(0, targets.Count);
+
         characters.Sort((a, b) => a.TurnSpeed.CompareTo(b.TurnSpeed));
         source = characters[0];
         source.activeTurn();
@@ -49,19 +50,6 @@ public class ActionController
         set
         {
             action = value;
-        }
-    }
-
-    public Squad[] Teams
-    {
-        get
-        {
-            return teams;
-        }
-
-        set
-        {
-            teams = value;
         }
     }
 
@@ -86,11 +74,131 @@ public class ActionController
     public void calculateEffect(Character destination)
     {
         int result = action.BaseEffectValue + source.getStat(action.EffectIncreaseModifier) - destination.getStat(action.EffectDecreaseModifier);
+
         destination.setStat(action.EffectStat, result);
     }
 
-    public void calculateEffect(Character destination, Move move)
+    public void calculateEffect(Character destination, Modifier modifier)
     {
-        //TODO: Implement.  Do moves need a reference to their source?  It may make some things neater, and it will be essential if modifier effects are variable based on character stats.
+        int result = modifier.Move.BaseEffectValue + modifier.Source.getStat(modifier.Move.EffectIncreaseModifier) - destination.getStat(modifier.Move.EffectDecreaseModifier);
+
+        destination.setStat(modifier.Move.EffectStat, result);
+    }
+
+    public void setTargets(AoE area, Squad squad, SquadPosition target)
+    {
+        switch (area)
+        {
+            case AoE.SINGLE:
+                targets.Add(squad.getCharacterAtPosition(target));
+                break;
+
+            case AoE.PIERCING:
+                targets.Add(
+                    squad.getCharacterAtPosition(target)
+                    );
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterBehindPosition(target)
+                        ));
+                break;
+            case AoE.DOUBLE:
+                targets.Add(
+                    squad.getCharacterAtPosition(target)
+                    );
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterNextToPosition(target)
+                        ));
+                break;
+
+            case AoE.DOUBLE_PIERCING:
+                targets.Add(
+                    squad.getCharacterAtPosition(target)
+                    );
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterBehindPosition(target)
+                        ));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterNextToPosition(target)
+                        ));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                    squad.getCharacterBehindPosition(
+                        squad.getCharacterNextToPosition(target)
+                        )));
+                break;
+
+            case AoE.TRIPLE:
+                targets.Add(
+                    squad.getCharacterAtPosition(target)
+                    );
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                    squad.getCharacterNextToPosition(target)
+                    ));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterNextToPosition(
+                            squad.getCharacterNextToPosition(target)
+                            )));
+                break;
+
+            case AoE.TRIPLE_PIERCING:
+                targets.Add(
+                    squad.getCharacterAtPosition(target)
+                    );
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterBehindPosition(target)
+                        ));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                    squad.getCharacterNextToPosition(target)
+                    ));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterBehindPosition(
+                            squad.getCharacterNextToPosition(target)
+                            )));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterNextToPosition(
+                            squad.getCharacterNextToPosition(target)
+                            )));
+
+                targets.Add(
+                    squad.getCharacterAtPosition(
+                        squad.getCharacterBehindPosition(
+                            squad.getCharacterNextToPosition(
+                                squad.getCharacterNextToPosition(target
+                                )))));
+                break;
+
+            case AoE.ALL:
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.FRONT_LEFT));
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.FRONT_MIDDLE));
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.FRONT_RIGHT));
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.BACK_LEFT));
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.BACK_MIDDLE));
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.BACK_RIGHT));
+                targets.Add(squad.getCharacterAtPosition(SquadPosition.UTILITY));
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -1,4 +1,4 @@
 ﻿namespace TrialByFire
 {
-    public enum SquadPosition { Front_Top, Front_Bottom, Back_Top, Back_Bottom, Utility };
+    public enum SquadPosition { BACK_LEFT, FRONT_LEFT, BACK_MIDDLE, FRONT_MIDDLE, BACK_RIGHT, FRONT_RIGHT, UTILITY, NONE };
 }

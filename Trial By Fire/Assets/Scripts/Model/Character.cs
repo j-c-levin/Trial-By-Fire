@@ -17,6 +17,7 @@ public class Character
     private int baseArmour;
     private int baseAccuracy;
     private int baseSync;
+    private int channelingRegen;
     private int currentHealth;
     private int currentChannelling;
     private int currentSpeed;
@@ -26,8 +27,8 @@ public class Character
     private int currentSync;
     private int currentShield = 0;
     private Move[] moves;
-    private List<Move> modifiers;
-    private int turnCount;
+    private List<Modifier> modifiers;
+    private int turnCount = 1;
 
     public string Name
     {
@@ -110,7 +111,52 @@ public class Character
 
     public void setStat(CharacterStats stat, int value)
     {
-        //TODO: implement;
+        switch (stat)
+        {
+            case CharacterStats.NONE:
+                break;
+            case CharacterStats.SPEED:
+                 CurrentSpeed = value;
+                break;
+            case CharacterStats.STRENGTH:
+                CurrentStrength = value;
+                break;
+            case CharacterStats.ARMOUR:
+                CurrentArmour = value;
+                break;
+            case CharacterStats.ACCURACY:
+                CurrentAccuracy = value;
+                break;
+            case CharacterStats.SYNC:
+                CurrentSync = value;
+                break;
+            case CharacterStats.CHANNELLING:
+                CurrentChannelling = value;
+                break;
+            case CharacterStats.HEALTH:
+                CurrentHealth = value;
+                break;
+            case CharacterStats.SHIELD:
+                CurrentShield = value;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public List<Modifier> getModifiers()
+    {
+        return modifiers;
+    }
+
+    public void removeModifier(int index)
+    {
+        modifiers.RemoveAt(index);
+    }
+
+    public void addModifier(Modifier newModifier)
+    {
+        modifiers.Add(newModifier);
     }
 
     public int MaxHealth
@@ -316,7 +362,7 @@ public class Character
 
     public void Initialize()
     {
-        modifiers = new List<Move>();
+        modifiers = new List<Modifier>();
     }
 
     public float TurnSpeed
@@ -340,6 +386,19 @@ public class Character
         }
     }
 
+    public int ChannelingRegen
+    {
+        get
+        {
+            return channelingRegen;
+        }
+
+        set
+        {
+            channelingRegen = value;
+        }
+    }
+
     public void activeTurn()
     {
         turnCount += 1;
@@ -350,17 +409,25 @@ public class Character
         CurrentArmour = BaseArmour;
         currentAccuracy = BaseAccuracy;
         CurrentSync = BaseSync;
-        //TODO: handle channelling regen
+        CurrentChannelling += channelingRegen;
 
+        activateModifiers();
+    }
+
+    private void activateModifiers()
+    {
         for (int i = 0; i < modifiers.Count; i++)
         {
-            modifiers[i].Duration -= 1;
-            if (modifiers[i].Duration > 0)
+            modifiers[i].Move.Duration -= 1;
+            if (modifiers[i].Move.Duration > 0)
             {
                 //Resolve effect
-                //TODO:  this currently assumes a fixed amount of value in the buff/debuff, this is probably not going to be the case in the end, perhaps create an overload in ActionController just to calculate the effect?
-                setStat(modifiers[i].EffectStat, modifiers[i].BaseEffectValue);
-            } else
+                //TODO: add this to zenject.
+                ActionController a = new ActionController();
+                a.calculateEffect(this, modifiers[i]);
+                a = null;
+            }
+            else
             {
                 modifiers.RemoveAt(i);
             }

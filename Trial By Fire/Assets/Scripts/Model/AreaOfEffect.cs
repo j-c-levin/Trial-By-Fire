@@ -1,4 +1,4 @@
 ﻿namespace TrialByFire
 {
-    public enum AoE { SINGLE, PIERCING_LINE, FRONT_ROW, SQUARE };
+    public enum AoE { SINGLE, PIERCING, DOUBLE, DOUBLE_PIERCING, TRIPLE, TRIPLE_PIERCING, ALL };
 }

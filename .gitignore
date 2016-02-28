@@ -27,3 +27,6 @@ sysinfo.txt
 Trial By Fire/Library/
 Trial By Fire/ProjectSettings/
 *.cs.meta
+Trial By Fire/Assets/Scripts/Controller.meta
+Trial By Fire/Assets/Scripts/Model.meta
+Trial By Fire/Assets/Scripts.meta
