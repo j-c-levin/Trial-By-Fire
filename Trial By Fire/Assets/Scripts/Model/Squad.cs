@@ -1,5 +1,4 @@
 ﻿using TrialByFire;
-using System.Collections.Generic;
 
 public class Squad
 {
@@ -24,7 +23,7 @@ public class Squad
         members = new Character[4][];
         for (int i = 0; i < 3; i++)
         {
-            members[0] = new Character[2];
+            members[i] = new Character[2];
         }
         members[3] = new Character[1];
     }
@@ -83,19 +82,19 @@ public class Squad
         switch (position)
         {
             case SquadPosition.FRONT_LEFT:
-                return SquadPosition.FRONT_MIDDLE;
+                return SquadPosition.UTILITY;
             case SquadPosition.FRONT_MIDDLE:
-                return SquadPosition.FRONT_RIGHT;
+                return SquadPosition.FRONT_LEFT;
             case SquadPosition.FRONT_RIGHT:
-                return SquadPosition.UTILITY;
+                return SquadPosition.FRONT_MIDDLE;
             case SquadPosition.BACK_LEFT:
-                return SquadPosition.BACK_MIDDLE;
+                return SquadPosition.NONE;
             case SquadPosition.BACK_MIDDLE:
-                return SquadPosition.BACK_RIGHT;
+                return SquadPosition.BACK_LEFT;
             case SquadPosition.BACK_RIGHT:
-                return SquadPosition.UTILITY;
+                return SquadPosition.BACK_MIDDLE;
             case SquadPosition.UTILITY:
-                return SquadPosition.UTILITY;
+                return SquadPosition.NONE;
             default:
                 return SquadPosition.NONE;
         }
