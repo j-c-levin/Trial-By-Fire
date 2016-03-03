@@ -73,14 +73,14 @@ public class ActionController
 
     public void calculateEffect(Character destination)
     {
-        int result = action.BaseEffectValue + source.getStat(action.EffectIncreaseModifier) - destination.getStat(action.EffectDecreaseModifier);
+        int result = action.BaseEffectValue;
 
         destination.setStat(action.EffectStat, result);
     }
 
     public void calculateEffect(Character destination, Modifier modifier)
     {
-        int result = modifier.Move.BaseEffectValue + modifier.Source.getStat(modifier.Move.EffectIncreaseModifier) - destination.getStat(modifier.Move.EffectDecreaseModifier);
+        int result = modifier.Move.BaseEffectValue;
 
         destination.setStat(modifier.Move.EffectStat, result);
     }
@@ -93,7 +93,7 @@ public class ActionController
                 targets.Add(squad.getCharacterAtPosition(target));
                 break;
 
-            case AoE.PIERCING:
+            case AoE.SINGLE_PIERCING:
                 targets.Add(
                     squad.getCharacterAtPosition(target)
                     );

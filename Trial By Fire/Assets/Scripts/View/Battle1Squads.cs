@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Battle1Squads : MonoBehaviour {
 
@@ -9,6 +10,11 @@ public class Battle1Squads : MonoBehaviour {
     public Squad PlayerSquad;
     public Squad MobSquad;
 
+    public Text[] moveUI;
+
+    public delegate void MoveSelectedDelegate(int index);
+    public MoveSelectedDelegate moveSelected;
+
     public void UpdateSquadTiles()
     {
         for (int i = 0; i < 6; i++)
@@ -17,5 +23,18 @@ public class Battle1Squads : MonoBehaviour {
 
             MobSquadTiles[i].GetComponentInChildren<Text>().text = MobSquad.getCharacterAtPosition((TrialByFire.SquadPosition)i).Name;
         }
+    }
+
+    public void UpdateMoves(Character character)
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            moveUI[i].text = character.getMove(i).Name;
+        }
+    }
+
+    public void OnMoveSelected(int index)
+    {
+        moveSelected(index);
     }
 }

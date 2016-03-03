@@ -5,6 +5,21 @@ public class Squad
     private string name;
     private Character[][] members;
 
+    public Squad()
+    {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        members = new Character[4][];
+        for (int i = 0; i < 3; i++)
+        {
+            members[i] = new Character[2];
+        }
+        members[3] = new Character[1];
+    }
+
     public string Name
     {
         get
@@ -16,16 +31,6 @@ public class Squad
         {
             name = value;
         }
-    }
-
-    public void Initialize()
-    {
-        members = new Character[4][];
-        for (int i = 0; i < 3; i++)
-        {
-            members[i] = new Character[2];
-        }
-        members[3] = new Character[1];
     }
 
     public Character getCharacterAtPosition(SquadPosition position)

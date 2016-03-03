@@ -30,6 +30,17 @@ public class Character
     private List<Modifier> modifiers;
     private int turnCount = 1;
 
+    public Character()
+    {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        modifiers = new List<Modifier>();
+        moves = new Move[6];
+    }
+
     public string Name
     {
         get
@@ -142,6 +153,16 @@ public class Character
             default:
                 break;
         }
+    }
+
+    public void setMove(Move move, int index)
+    {
+        moves[index] = move;
+    }
+
+    public Move getMove(int index)
+    {
+        return moves[index];
     }
 
     public List<Modifier> getModifiers()
@@ -358,11 +379,6 @@ public class Character
         {
             currentState = value;
         }
-    }
-
-    public void Initialize()
-    {
-        modifiers = new List<Modifier>();
     }
 
     public float TurnSpeed
