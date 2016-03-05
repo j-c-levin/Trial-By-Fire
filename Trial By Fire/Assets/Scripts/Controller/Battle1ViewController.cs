@@ -32,8 +32,9 @@ public class Battle1ViewController : MonoBehaviour
     {
         foreach (Character target in actionController.setTargets(move.Shape, targetSquad, destination))
         {
-            if (target == null)
+            if (target == null || target.CurrentState == CharacterState.DOWN)
                 continue;
+
             //int hitChance = move.BaseHitChance + currentCharacter.getStat(move.HitIncreaseModifier) - target.getStat(move.HitDecreaseModifier);
             //int hit = Random.Range(0, 101);
             //Debug.Log("Rolled: " + hit + " from chance: " + hitChance + " from: " + move.BaseHitChance + " + " + currentCharacter.getStat(move.HitIncreaseModifier) + " - " + target.getStat(move.HitDecreaseModifier));
@@ -43,6 +44,11 @@ public class Battle1ViewController : MonoBehaviour
             {
                 squadView.HitAnimation(targetSquad, target);
                 actionController.calculateEffect(target, move);
+                if (target.CurrentHealth <= 0)
+                {
+                    target.CurrentState = CharacterState.DOWN;
+                    actionController.RemoveCharacterFromTurnList(target);
+                }
             }
             else
             {
@@ -65,6 +71,7 @@ public class Battle1ViewController : MonoBehaviour
             newChar = new Character();
 
             newChar.Side = (squad == squadView.PlayerSquad) ? TrialByFire.SquadSide.LEFT : TrialByFire.SquadSide.RIGHT;
+            newChar.CurrentState = CharacterState.ALIVE;
 
             newChar.setBaseStat(TrialByFire.CharacterStats.ACCURACY, Random.Range(40, 70));
             newChar.setBaseStat(TrialByFire.CharacterStats.ARMOUR, Random.Range(20, 50));

@@ -15,7 +15,7 @@ public static class MoveFactory
                 response.HitIncreaseModifier = CharacterStats.ACCURACY;
                 response.HitDecreaseModifier = CharacterStats.SPEED;
                 response.EffectStat = CharacterStats.HEALTH;
-                response.BaseEffectValue = -20;
+                response.BaseEffectValue = -100;
                 response.EffectIncreaseModifier = CharacterStats.ACCURACY;
                 response.EffectDecreaseModifier = CharacterStats.ARMOUR;
                 response.Target = MoveTarget.ENEMY;

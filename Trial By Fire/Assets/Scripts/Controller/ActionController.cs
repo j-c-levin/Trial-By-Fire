@@ -27,6 +27,18 @@ public class ActionController
         characters.Add(character);
     }
 
+    public void RemoveCharacterFromTurnList(Character character)
+    {
+        for (int i = 0; i < characters.Count; i++)
+        {
+            if (characters[i] == character)
+            {
+                characters.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
     public void Begin()
     {
         NextTurn();

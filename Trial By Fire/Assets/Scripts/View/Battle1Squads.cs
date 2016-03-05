@@ -54,7 +54,6 @@ public class Battle1Squads : MonoBehaviour
 
     void activateTile(Character character, Color c)
     {
-
         SquadPosition sp;
         Image[] i;
         if (character.Side == TrialByFire.SquadSide.LEFT)
@@ -74,8 +73,13 @@ public class Battle1Squads : MonoBehaviour
             return;
         }
 
-        i[(int)sp].color = c;
-        i[(int)sp].GetComponent<Button>().interactable = (c == Color.yellow);
+        if (character.CurrentState == CharacterState.DOWN)
+            i[(int)sp].color = Color.gray;
+        else
+        {
+            i[(int)sp].color = c;
+            i[(int)sp].GetComponent<Button>().interactable = (c == Color.yellow);
+        }
     }
 
     public void OnMoveSelected(int index)
