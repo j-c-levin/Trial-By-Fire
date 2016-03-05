@@ -6,23 +6,25 @@ public class ActionController
 {
     private List<Character> characters;
     private Character source;
-    private List<Character> targets;
-    private Move action;
-    Random random = new Random();
+    Random random;
+
+    public delegate void ActiveCharacter(Character activeCharacter);
+    public ActiveCharacter activeCharacter;
+
+    public ActionController()
+    {
+        Initialize();
+    }
 
     public void Initialize()
     {
         characters = new List<Character>();
-        targets = new List<Character>();
+        random = new Random();
     }
 
-    public void AddCharactersToTurnList(Character[] units)
+    public void AddCharactersToTurnList(Character character)
     {
-        foreach (Character c in units)
-        {
-            c.Initialize();
-            characters.Add(c);
-        }
+        characters.Add(character);
     }
 
     public void Begin()
@@ -32,46 +34,19 @@ public class ActionController
 
     public void NextTurn()
     {
-        //Reset the target list
-        targets.RemoveRange(0, targets.Count);
-
         characters.Sort((a, b) => a.TurnSpeed.CompareTo(b.TurnSpeed));
         source = characters[0];
-        source.activeTurn();
+        activeCharacter(source);
     }
 
-    public Move Action
-    {
-        get
-        {
-            return action;
-        }
-
-        set
-        {
-            action = value;
-        }
-    }
-
-    public void execute()
-    {
-        foreach (Character destination in targets)
-        {
-            if (calculateHit(destination))
-            {
-                calculateEffect(destination);
-            }
-        }
-    }
-
-    public bool calculateHit(Character destination)
+    public bool calculateHit(Character source, Character destination, Move action)
     {
         int hitChance = action.BaseHitChance + source.getStat(action.HitIncreaseModifier) - destination.getStat(action.HitDecreaseModifier);
 
         return hitChance > random.Next(0, 101);
     }
 
-    public void calculateEffect(Character destination)
+    public void calculateEffect(Character destination, Move action)
     {
         int result = action.BaseEffectValue;
 
@@ -85,8 +60,9 @@ public class ActionController
         destination.setStat(modifier.Move.EffectStat, result);
     }
 
-    public void setTargets(AoE area, Squad squad, SquadPosition target)
+    public List<Character> setTargets(AoE area, Squad squad, SquadPosition target)
     {
+        List<Character> targets = new List<Character>();
         switch (area)
         {
             case AoE.SINGLE:
@@ -200,5 +176,6 @@ public class ActionController
             default:
                 break;
         }
+        return targets;
     }
 }

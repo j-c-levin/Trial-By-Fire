@@ -12,6 +12,7 @@ public class Move
     private int baseEffectValue;
     private CharacterStats effectIncreaseModifier;
     private CharacterStats effectDecreaseModifier;
+    private MoveTarget target;
 
     public string Name
     {
@@ -140,6 +141,19 @@ public class Move
         set
         {
             effectStat = value;
+        }
+    }
+
+    public MoveTarget Target
+    {
+        get
+        {
+            return target;
+        }
+
+        set
+        {
+            target = value;
         }
     }
 }

@@ -7,6 +7,7 @@ public class Character
     private string className;
     private int currentExperience;
     private int currentLevel;
+    private SquadSide side;
     private CharacterState currentState;
     private int maxHealth;
     private int maxChannelling;
@@ -93,6 +94,18 @@ public class Character
         }
     }
 
+    public SquadSide Side
+    {
+        get
+        {
+            return side;
+        }
+        set
+        {
+            side = value;
+        }
+    }
+
     public int getStat(CharacterStats stat)
     {
         switch (stat)
@@ -127,28 +140,69 @@ public class Character
             case CharacterStats.NONE:
                 break;
             case CharacterStats.SPEED:
-                 CurrentSpeed = value;
+                CurrentSpeed += value;
                 break;
             case CharacterStats.STRENGTH:
+                CurrentStrength += value;
+                break;
+            case CharacterStats.ARMOUR:
+                CurrentArmour += value;
+                break;
+            case CharacterStats.ACCURACY:
+                CurrentAccuracy += value;
+                break;
+            case CharacterStats.SYNC:
+                CurrentSync += value;
+                break;
+            case CharacterStats.CHANNELLING:
+                CurrentChannelling += value;
+                break;
+            case CharacterStats.HEALTH:
+                CurrentHealth += value;
+                break;
+            case CharacterStats.SHIELD:
+                CurrentShield += value;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setBaseStat(CharacterStats stat, int value)
+    {
+        switch (stat)
+        {
+            case CharacterStats.NONE:
+                break;
+            case CharacterStats.SPEED:
+                BaseSpeed = value;
+                CurrentSpeed = BaseSpeed;
+                break;
+            case CharacterStats.STRENGTH:
+                BaseStrength = value;
                 CurrentStrength = value;
                 break;
             case CharacterStats.ARMOUR:
-                CurrentArmour = value;
+                BaseArmour = value;
+                CurrentArmour = BaseArmour;
                 break;
             case CharacterStats.ACCURACY:
-                CurrentAccuracy = value;
+                BaseAccuracy = value;
+                CurrentAccuracy = BaseAccuracy;
                 break;
             case CharacterStats.SYNC:
-                CurrentSync = value;
+                BaseSync = value;
+                CurrentSync = BaseSync;
                 break;
             case CharacterStats.CHANNELLING:
-                CurrentChannelling = value;
+                MaxChannelling = value;
+                CurrentChannelling = MaxChannelling;
                 break;
             case CharacterStats.HEALTH:
-                CurrentHealth = value;
+                MaxHealth = value;
+                CurrentHealth = MaxHealth;
                 break;
             case CharacterStats.SHIELD:
-                CurrentShield = value;
                 break;
             default:
                 break;
@@ -438,7 +492,6 @@ public class Character
             if (modifiers[i].Move.Duration > 0)
             {
                 //Resolve effect
-                //TODO: add this to zenject.
                 ActionController a = new ActionController();
                 a.calculateEffect(this, modifiers[i]);
                 a = null;

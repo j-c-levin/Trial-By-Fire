@@ -136,4 +136,13 @@ public class Squad
                 break;
         }
     }
+
+    public SquadPosition findCharacterPosition(Character character)
+    {
+        for (int i = 0; i < 6; i++) {
+            if (getCharacterAtPosition((SquadPosition)i) == character)
+                return (SquadPosition)i;
+        }
+        return SquadPosition.NONE;
+    }
 }

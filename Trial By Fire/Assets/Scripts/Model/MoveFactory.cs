@@ -18,6 +18,7 @@ public static class MoveFactory
                 response.BaseEffectValue = -20;
                 response.EffectIncreaseModifier = CharacterStats.ACCURACY;
                 response.EffectDecreaseModifier = CharacterStats.ARMOUR;
+                response.Target = MoveTarget.ENEMY;
                 break;
             case MoveList.DASH:
                 response.Name = "Dash";
@@ -30,6 +31,7 @@ public static class MoveFactory
                 response.BaseEffectValue = 10;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.SELF;
                 break;
             case MoveList.FIRST_AID:
                 response.Name = "First Aid";
@@ -42,18 +44,20 @@ public static class MoveFactory
                 response.BaseEffectValue = 10;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.FRIENDLY;
                 break;
             case MoveList.GRENADE:
                 response.Name = "Grenade";
                 response.Duration = 0;
                 response.Shape = AoE.DOUBLE_PIERCING;
                 response.BaseHitChance = 55;
-                response.HitIncreaseModifier = CharacterStats.NONE;
-                response.HitDecreaseModifier = CharacterStats.NONE;
+                response.HitIncreaseModifier = CharacterStats.ACCURACY;
+                response.HitDecreaseModifier = CharacterStats.SPEED;
                 response.EffectStat = CharacterStats.HEALTH;
                 response.BaseEffectValue = -10;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.ENEMY;
                 break;
             case MoveList.TAKE_COVER:
                 response.Name = "Take Cover";
@@ -66,18 +70,20 @@ public static class MoveFactory
                 response.BaseEffectValue = 10;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.SELF;
                 break;
             case MoveList.SUPPRESSIVE_FIRE:
                 response.Name = "Suppressive Fire";
                 response.Duration = 1;
                 response.Shape = AoE.DOUBLE;
-                response.BaseHitChance = 0;
-                response.HitIncreaseModifier = CharacterStats.NONE;
-                response.HitDecreaseModifier = CharacterStats.NONE;
+                response.BaseHitChance = 50;
+                response.HitIncreaseModifier = CharacterStats.ACCURACY;
+                response.HitDecreaseModifier = CharacterStats.SPEED;
                 response.EffectStat = CharacterStats.ACCURACY;
                 response.BaseEffectValue = -10;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.ENEMY;
                 break;
             case MoveList.FERAL_SWIPE:
                 response.Name = "Stab";
@@ -90,30 +96,33 @@ public static class MoveFactory
                 response.BaseEffectValue = -20;
                 response.EffectIncreaseModifier = CharacterStats.STRENGTH;
                 response.EffectDecreaseModifier = CharacterStats.ARMOUR;
+                response.Target = MoveTarget.ENEMY;
                 break;
             case MoveList.PROJECT_FEAR:
                 response.Name = "Project Fear";
                 response.Duration = 1;
                 response.Shape = AoE.SINGLE_PIERCING;
                 response.BaseHitChance = 60;
-                response.HitIncreaseModifier = CharacterStats.NONE;
-                response.HitDecreaseModifier = CharacterStats.NONE;
+                response.HitIncreaseModifier = CharacterStats.SYNC;
+                response.HitDecreaseModifier = CharacterStats.SYNC;
                 response.EffectStat = CharacterStats.STRENGTH;
                 response.BaseEffectValue = -10;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.ENEMY;
                 break;
             case MoveList.HUNT:
                 response.Name = "Hunt";
                 response.Duration = 1;
                 response.Shape = AoE.SINGLE;
                 response.BaseHitChance = 55;
-                response.HitIncreaseModifier = CharacterStats.NONE;
-                response.HitDecreaseModifier = CharacterStats.NONE;
+                response.HitIncreaseModifier = CharacterStats.SYNC;
+                response.HitDecreaseModifier = CharacterStats.SYNC;
                 response.EffectStat = CharacterStats.SPEED;
                 response.BaseEffectValue = +20;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.ENEMY;
                 break;
             default:
                 response.Name = "";
@@ -126,6 +135,7 @@ public static class MoveFactory
                 response.BaseEffectValue = 0;
                 response.EffectIncreaseModifier = CharacterStats.NONE;
                 response.EffectDecreaseModifier = CharacterStats.NONE;
+                response.Target = MoveTarget.NONE;
                 break;
         }
         return response;
