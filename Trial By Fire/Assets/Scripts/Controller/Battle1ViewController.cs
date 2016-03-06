@@ -75,7 +75,7 @@ public class Battle1ViewController : MonoBehaviour
 
             newChar.setBaseStat(TrialByFire.CharacterStats.ACCURACY, Random.Range(40, 70));
             newChar.setBaseStat(TrialByFire.CharacterStats.ARMOUR, Random.Range(20, 50));
-            newChar.setBaseStat(TrialByFire.CharacterStats.CHANNELLING, Random.Range(40, 70));
+            newChar.setBaseStat(TrialByFire.CharacterStats.ENERGY, Random.Range(40, 70));
             newChar.setBaseStat(TrialByFire.CharacterStats.HEALTH, 100);
             newChar.setBaseStat(TrialByFire.CharacterStats.SPEED, Random.Range(20, 70));
             newChar.setBaseStat(TrialByFire.CharacterStats.STRENGTH, Random.Range(40, 70));

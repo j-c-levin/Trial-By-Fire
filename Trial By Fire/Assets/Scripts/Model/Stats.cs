@@ -1,4 +1,16 @@
 ﻿namespace TrialByFire
 {
-   public enum CharacterStats { NONE, SPEED, STRENGTH, ARMOUR, ACCURACY, SYNC, CHANNELLING, HEALTH, SHIELD  };
+	public enum CharacterStats
+	{
+		NONE,
+		SPEED,
+		STRENGTH,
+		ARMOUR,
+		ACCURACY,
+		SYNC,
+		ENERGY,
+		HEALTH,
+		SHIELD,
+		TOUGHNESS
+	}
 }

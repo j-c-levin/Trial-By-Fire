@@ -81,7 +81,7 @@ public class ActionController
                 targets.Add(squad.getCharacterAtPosition(target));
                 break;
 
-            case AoE.SINGLE_PIERCING:
+            case AoE.SINGLE_PENETRATING:
                 targets.Add(
                     squad.getCharacterAtPosition(target)
                     );
@@ -102,7 +102,7 @@ public class ActionController
                         ));
                 break;
 
-            case AoE.DOUBLE_PIERCING:
+            case AoE.DOUBLE_PENETRATING:
                 targets.Add(
                     squad.getCharacterAtPosition(target)
                     );
@@ -141,7 +141,7 @@ public class ActionController
                             )));
                 break;
 
-            case AoE.TRIPLE_PIERCING:
+            case AoE.TRIPLE_PENETRATING:
                 targets.Add(
                     squad.getCharacterAtPosition(target)
                     );

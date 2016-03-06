@@ -3,503 +3,451 @@ using System.Collections.Generic;
 
 public class Character
 {
-    private string name;
-    private string className;
-    private int currentExperience;
-    private int currentLevel;
-    private SquadSide side;
-    private CharacterState currentState;
-    private int maxHealth;
-    private int maxChannelling;
-    private int baseSpeed;
-    private float turnSpeed;
-    private float actionDelay;
-    private int baseStrength;
-    private int baseArmour;
-    private int baseAccuracy;
-    private int baseSync;
-    private int channelingRegen;
-    private int currentHealth;
-    private int currentChannelling;
-    private int currentSpeed;
-    private int currentStrength;
-    private int currentArmour;
-    private int currentAccuracy;
-    private int currentSync;
-    private int currentShield = 0;
-    private Move[] moves;
-    private List<Modifier> modifiers;
-    private int turnCount = 1;
+	private string name;
+	private string className;
+	private int currentExperience;
+	private int currentLevel;
+	private SquadSide side;
+	private CharacterState currentState;
+	private int maxHealth;
+	private int baseEnergy;
+	private int baseSpeed;
+	private float turnSpeed;
+	private float actionDelay;
+	private int baseStrength;
+	private int baseArmour;
+	private int baseAccuracy;
+	private int baseSync;
+	private int baseToughness;
+	private int energyRegen;
+	private int currentHealth;
+	private int currentEnergy;
+	private int currentSpeed;
+	private int currentStrength;
+	private int currentArmour;
+	private int currentAccuracy;
+	private int currentSync;
+	private int currentToughness;
+	private int currentShield = 0;
+	private Move[] moves;
+	private List<Modifier> modifiers;
+	private int turnCount = 1;
 
-    public Character()
-    {
-        Initialize();
-    }
+	public Character ()
+	{
+		Initialize ();
+	}
 
-    public void Initialize()
-    {
-        modifiers = new List<Modifier>();
-        moves = new Move[6];
-    }
+	public void Initialize ()
+	{
+		modifiers = new List<Modifier> ();
+		moves = new Move[6];
+	}
 
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
+	public string Name {
+		get {
+			return name;
+		}
 
-        set
-        {
-            name = value;
-        }
-    }
+		set {
+			name = value;
+		}
+	}
 
-    public string ClassName
-    {
-        get
-        {
-            return className;
-        }
+	public string ClassName {
+		get {
+			return className;
+		}
 
-        set
-        {
-            className = value;
-        }
-    }
+		set {
+			className = value;
+		}
+	}
 
-    public int CurrentExperience
-    {
-        get
-        {
-            return currentExperience;
-        }
+	public int CurrentExperience {
+		get {
+			return currentExperience;
+		}
 
-        set
-        {
-            currentExperience = value;
-        }
-    }
+		set {
+			currentExperience = value;
+		}
+	}
 
-    public int CurrentLevel
-    {
-        get
-        {
-            return currentLevel;
-        }
+	public int CurrentLevel {
+		get {
+			return currentLevel;
+		}
 
-        set
-        {
-            currentLevel = value;
-        }
-    }
+		set {
+			currentLevel = value;
+		}
+	}
 
-    public SquadSide Side
-    {
-        get
-        {
-            return side;
-        }
-        set
-        {
-            side = value;
-        }
-    }
+	public SquadSide Side {
+		get {
+			return side;
+		}
+		set {
+			side = value;
+		}
+	}
 
-    public int getStat(CharacterStats stat)
-    {
-        switch (stat)
-        {
-            case CharacterStats.NONE:
-                return 0;
-            case CharacterStats.SPEED:
-                return CurrentSpeed;
-            case CharacterStats.STRENGTH:
-                return CurrentStrength;
-            case CharacterStats.ARMOUR:
-                return CurrentArmour;
-            case CharacterStats.ACCURACY:
-                return CurrentAccuracy;
-            case CharacterStats.SYNC:
-                return CurrentSync;
-            case CharacterStats.CHANNELLING:
-                return CurrentChannelling;
-            case CharacterStats.HEALTH:
-                return CurrentHealth;
-            case CharacterStats.SHIELD:
-                return CurrentShield;
-            default:
-                return -1;
-        }
-    }
+	public int getStat (CharacterStats stat)
+	{
+		switch (stat) {
+		case CharacterStats.NONE:
+			return 0;
+		case CharacterStats.SPEED:
+			return CurrentSpeed;
+		case CharacterStats.STRENGTH:
+			return CurrentStrength;
+		case CharacterStats.ARMOUR:
+			return CurrentArmour;
+		case CharacterStats.ACCURACY:
+			return CurrentAccuracy;
+		case CharacterStats.SYNC:
+			return CurrentSync;
+		case CharacterStats.ENERGY:
+			return CurrentChannelling;
+		case CharacterStats.HEALTH:
+			return CurrentHealth;
+		case CharacterStats.SHIELD:
+			return CurrentShield;
+		default:
+			return -1;
+		}
+	}
 
-    public void setStat(CharacterStats stat, int value)
-    {
-        switch (stat)
-        {
-            case CharacterStats.NONE:
-                break;
-            case CharacterStats.SPEED:
-                CurrentSpeed += value;
-                break;
-            case CharacterStats.STRENGTH:
-                CurrentStrength += value;
-                break;
-            case CharacterStats.ARMOUR:
-                CurrentArmour += value;
-                break;
-            case CharacterStats.ACCURACY:
-                CurrentAccuracy += value;
-                break;
-            case CharacterStats.SYNC:
-                CurrentSync += value;
-                break;
-            case CharacterStats.CHANNELLING:
-                CurrentChannelling += value;
-                break;
-            case CharacterStats.HEALTH:
-                CurrentHealth += value;
-                break;
-            case CharacterStats.SHIELD:
-                CurrentShield += value;
-                break;
-            default:
-                break;
-        }
-    }
+	public void setStat (CharacterStats stat, int value)
+	{
+		switch (stat) {
+		case CharacterStats.NONE:
+			break;
+		case CharacterStats.SPEED:
+			CurrentSpeed += value;
+			break;
+		case CharacterStats.STRENGTH:
+			CurrentStrength += value;
+			break;
+		case CharacterStats.ARMOUR:
+			CurrentArmour += value;
+			break;
+		case CharacterStats.ACCURACY:
+			CurrentAccuracy += value;
+			break;
+		case CharacterStats.SYNC:
+			CurrentSync += value;
+			break;
+		case CharacterStats.ENERGY:
+			CurrentChannelling += value;
+			break;
+		case CharacterStats.HEALTH:
+			CurrentHealth += value;
+			break;
+		case CharacterStats.SHIELD:
+			CurrentShield += value;
+			break;
+		default:
+			break;
+		}
+	}
 
-    public void setBaseStat(CharacterStats stat, int value)
-    {
-        switch (stat)
-        {
-            case CharacterStats.NONE:
-                break;
-            case CharacterStats.SPEED:
-                BaseSpeed = value;
-                CurrentSpeed = BaseSpeed;
-                break;
-            case CharacterStats.STRENGTH:
-                BaseStrength = value;
-                CurrentStrength = value;
-                break;
-            case CharacterStats.ARMOUR:
-                BaseArmour = value;
-                CurrentArmour = BaseArmour;
-                break;
-            case CharacterStats.ACCURACY:
-                BaseAccuracy = value;
-                CurrentAccuracy = BaseAccuracy;
-                break;
-            case CharacterStats.SYNC:
-                BaseSync = value;
-                CurrentSync = BaseSync;
-                break;
-            case CharacterStats.CHANNELLING:
-                MaxChannelling = value;
-                CurrentChannelling = MaxChannelling;
-                break;
-            case CharacterStats.HEALTH:
-                MaxHealth = value;
-                CurrentHealth = MaxHealth;
-                break;
-            case CharacterStats.SHIELD:
-                break;
-            default:
-                break;
-        }
-    }
+	public void setBaseStat (CharacterStats stat, int value)
+	{
+		switch (stat) {
+		case CharacterStats.NONE:
+			break;
+		case CharacterStats.SPEED:
+			BaseSpeed = value;
+			CurrentSpeed = BaseSpeed;
+			break;
+		case CharacterStats.STRENGTH:
+			BaseStrength = value;
+			CurrentStrength = value;
+			break;
+		case CharacterStats.ARMOUR:
+			BaseArmour = value;
+			CurrentArmour = BaseArmour;
+			break;
+		case CharacterStats.ACCURACY:
+			BaseAccuracy = value;
+			CurrentAccuracy = BaseAccuracy;
+			break;
+		case CharacterStats.SYNC:
+			BaseSync = value;
+			CurrentSync = BaseSync;
+			break;
+		case CharacterStats.ENERGY:
+			MaxChannelling = value;
+			CurrentChannelling = MaxChannelling;
+			break;
+		case CharacterStats.HEALTH:
+			MaxHealth = value;
+			CurrentHealth = MaxHealth;
+			break;
+		case CharacterStats.SHIELD:
+			break;
+		case CharacterStats.TOUGHNESS:
+			baseToughness = value;
+			currentToughness = baseToughness;
+		default:
+			break;
+		}
+	}
 
-    public void setMove(Move move, int index)
-    {
-        moves[index] = move;
-    }
+	public void setMove (Move move, int index)
+	{
+		moves [index] = move;
+	}
 
-    public Move getMove(int index)
-    {
-        return moves[index];
-    }
+	public Move getMove (int index)
+	{
+		return moves [index];
+	}
 
-    public List<Modifier> getModifiers()
-    {
-        return modifiers;
-    }
+	public List<Modifier> getModifiers ()
+	{
+		return modifiers;
+	}
 
-    public void removeModifier(int index)
-    {
-        modifiers.RemoveAt(index);
-    }
+	public void removeModifier (int index)
+	{
+		modifiers.RemoveAt (index);
+	}
 
-    public void addModifier(Modifier newModifier)
-    {
-        modifiers.Add(newModifier);
-    }
+	public void addModifier (Modifier newModifier)
+	{
+		modifiers.Add (newModifier);
+	}
 
-    public int MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
+	public int MaxHealth {
+		get {
+			return maxHealth;
+		}
 
-        set
-        {
-            maxHealth = value;
-        }
-    }
+		set {
+			maxHealth = value;
+		}
+	}
 
-    public int MaxChannelling
-    {
-        get
-        {
-            return maxChannelling;
-        }
+	public int MaxChannelling {
+		get {
+			return baseEnergy;
+		}
 
-        set
-        {
-            maxChannelling = value;
-        }
-    }
+		set {
+			baseEnergy = value;
+		}
+	}
 
-    public int BaseSpeed
-    {
-        get
-        {
-            return baseSpeed;
-        }
+	public int BaseSpeed {
+		get {
+			return baseSpeed;
+		}
 
-        set
-        {
-            baseSpeed = value;
-        }
-    }
+		set {
+			baseSpeed = value;
+		}
+	}
 
-    public int BaseStrength
-    {
-        get
-        {
-            return baseStrength;
-        }
+	public int BaseStrength {
+		get {
+			return baseStrength;
+		}
 
-        set
-        {
-            baseStrength = value;
-        }
-    }
+		set {
+			baseStrength = value;
+		}
+	}
 
-    public int BaseArmour
-    {
-        get
-        {
-            return baseArmour;
-        }
+	public int BaseArmour {
+		get {
+			return baseArmour;
+		}
 
-        set
-        {
-            baseArmour = value;
-        }
-    }
+		set {
+			baseArmour = value;
+		}
+	}
 
-    public int BaseAccuracy
-    {
-        get
-        {
-            return baseAccuracy;
-        }
+	public int BaseAccuracy {
+		get {
+			return baseAccuracy;
+		}
 
-        set
-        {
-            baseAccuracy = value;
-        }
-    }
+		set {
+			baseAccuracy = value;
+		}
+	}
 
-    public int BaseSync
-    {
-        get
-        {
-            return baseSync;
-        }
+	public int BaseSync {
+		get {
+			return baseSync;
+		}
 
-        set
-        {
-            baseSync = value;
-        }
-    }
+		set {
+			baseSync = value;
+		}
+	}
 
-    public int CurrentSpeed
-    {
-        get
-        {
-            return currentSpeed;
-        }
+	public int BaseToughness {
+		get {
+			return baseToughness;
+		}
+		set {
+			baseToughness = value;
+		}
+	}
 
-        set
-        {
-            currentSpeed = value;
-            turnSpeed = (100 / currentSpeed) * turnCount;
-            if (turnCount == 1)
-            {
-                //Start of the game, store as action delay
-                actionDelay = turnSpeed;
-            }
-        }
-    }
+	public int CurrentSpeed {
+		get {
+			return currentSpeed;
+		}
 
-    public int CurrentStrength
-    {
-        get
-        {
-            return currentStrength;
-        }
+		set {
+			currentSpeed = value;
+			turnSpeed = (100 / currentSpeed) * turnCount;
+			if (turnCount == 1) {
+				//Start of the game, store as action delay
+				actionDelay = turnSpeed;
+			}
+		}
+	}
 
-        set
-        {
-            currentStrength = value;
-        }
-    }
+	public int CurrentStrength {
+		get {
+			return currentStrength;
+		}
 
-    public int CurrentArmour
-    {
-        get
-        {
-            return currentArmour;
-        }
+		set {
+			currentStrength = value;
+		}
+	}
 
-        set
-        {
-            currentArmour = value;
-        }
-    }
+	public int CurrentArmour {
+		get {
+			return currentArmour;
+		}
 
-    public int CurrentAccuracy
-    {
-        get
-        {
-            return currentAccuracy;
-        }
+		set {
+			currentArmour = value;
+		}
+	}
 
-        set
-        {
-            currentAccuracy = value;
-        }
-    }
+	public int CurrentAccuracy {
+		get {
+			return currentAccuracy;
+		}
 
-    public int CurrentSync
-    {
-        get
-        {
-            return currentSync;
-        }
+		set {
+			currentAccuracy = value;
+		}
+	}
 
-        set
-        {
-            currentSync = value;
-        }
-    }
+	public int CurrentSync {
+		get {
+			return currentSync;
+		}
 
-    public int CurrentHealth
-    {
-        get
-        {
-            return currentHealth;
-        }
+		set {
+			currentSync = value;
+		}
+	}
 
-        set
-        {
-            currentHealth = value;
-        }
-    }
+	public int CurrentHealth {
+		get {
+			return currentHealth;
+		}
 
-    public int CurrentChannelling
-    {
-        get
-        {
-            return currentChannelling;
-        }
+		set {
+			currentHealth = value;
+		}
+	}
 
-        set
-        {
-            currentChannelling = value;
-        }
-    }
+	public int CurrentChannelling {
+		get {
+			return currentEnergy;
+		}
 
-    public CharacterState CurrentState
-    {
-        get
-        {
-            return currentState;
-        }
+		set {
+			currentEnergy = value;
+		}
+	}
 
-        set
-        {
-            currentState = value;
-        }
-    }
+	public CharacterState CurrentState {
+		get {
+			return currentState;
+		}
 
-    public float TurnSpeed
-    {
-        get
-        {
-            return turnSpeed;
-        }
-    }
+		set {
+			currentState = value;
+		}
+	}
 
-    public int CurrentShield
-    {
-        get
-        {
-            return currentShield;
-        }
+	public float TurnSpeed {
+		get {
+			return turnSpeed;
+		}
+	}
 
-        set
-        {
-            currentShield = value;
-        }
-    }
+	public int CurrentShield {
+		get {
+			return currentShield;
+		}
 
-    public int ChannelingRegen
-    {
-        get
-        {
-            return channelingRegen;
-        }
+		set {
+			currentShield = value;
+		}
+	}
 
-        set
-        {
-            channelingRegen = value;
-        }
-    }
+	public int EnergyRegen {
+		get {
+			return energyRegen;
+		}
 
-    public void activeTurn()
-    {
-        turnCount += 1;
-        turnSpeed += actionDelay;
+		set {
+			energyRegen = value;
+		}
+	}
 
-        CurrentSpeed = BaseSpeed;
-        CurrentStrength = BaseStrength;
-        CurrentArmour = BaseArmour;
-        currentAccuracy = BaseAccuracy;
-        CurrentSync = BaseSync;
-        CurrentChannelling += channelingRegen;
+	public int Toughness {
+		get {
+			return currentToughness;
+		}
+		set {
+			currentToughness = value;
+		}
+	}
 
-        activateModifiers();
-    }
 
-    private void activateModifiers()
-    {
-        for (int i = 0; i < modifiers.Count; i++)
-        {
-            modifiers[i].Move.Duration -= 1;
-            if (modifiers[i].Move.Duration > 0)
-            {
-                //Resolve effect
-                ActionController a = new ActionController();
-                a.calculateEffect(this, modifiers[i]);
-                a = null;
-            }
-            else
-            {
-                modifiers.RemoveAt(i);
-            }
-        }
-    }
+	public void activeTurn ()
+	{
+		turnCount += 1;
+		turnSpeed += actionDelay;
+
+		CurrentSpeed = BaseSpeed;
+		CurrentStrength = BaseStrength;
+		CurrentArmour = BaseArmour;
+		currentAccuracy = BaseAccuracy;
+		CurrentSync = BaseSync;
+		CurrentChannelling += energyRegen;
+
+		activateModifiers ();
+	}
+
+	private void activateModifiers ()
+	{
+		for (int i = 0; i < modifiers.Count; i++) {
+			modifiers [i].Move.Duration -= 1;
+			if (modifiers [i].Move.Duration > 0) {
+				//Resolve effect
+				ActionController a = new ActionController ();
+				a.calculateEffect (this, modifiers [i]);
+				a = null;
+			} else {
+				modifiers.RemoveAt (i);
+			}
+		}
+	}
 }
