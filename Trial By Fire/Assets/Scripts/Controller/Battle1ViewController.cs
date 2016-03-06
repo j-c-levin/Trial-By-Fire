@@ -44,6 +44,10 @@ public class Battle1ViewController : MonoBehaviour
             {
                 squadView.HitAnimation(targetSquad, target);
                 actionController.calculateEffect(target, move);
+
+                if (move.Duration > 0)
+                    target.addModifier(new Modifier(move, currentCharacter));
+
                 if (target.CurrentHealth <= 0)
                 {
                     target.CurrentState = CharacterState.DOWN;
